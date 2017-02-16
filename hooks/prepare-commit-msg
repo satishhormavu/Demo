@@ -1,0 +1,35 @@
+#!/bin/bash
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+FORBIDDENBRANCH=dev
+
+file=".git/MERGE_MSG"
+if [ -f "$file" ]
+then
+	MERGEBRANCH=$(<.git/MERGE_MSG)
+fi
+
+if [ "${BRANCH}" == "master" -a "${GIT_COMMIT_TO_MASTER}" != "true" ]
+then
+  if [ -e "${GIT_DIR}/MERGE_MODE" ]
+  then
+    echo "Merge to master is allowed."		
+    exit 0
+  else
+    
+	if [ -z "$MERGEBRANCH" ]; then
+		echo "Commit directly to master is not allowed."	
+	fi
+	
+	if [[ $MERGEBRANCH == *$FORBIDDENBRANCH* ]]; then
+		git reset --merge
+		echo "Merging of $FORBIDDENBRANCH on to $BRANCH is not allowed."
+		#git commit -m "dummy"
+		echo "Use git reset --merge to come out of merging."
+		echo $1
+		echo $2
+		echo $3
+	fi
+    exit 1
+  fi
+fi
