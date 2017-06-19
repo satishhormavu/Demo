@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "commit-msg"
+#BRANCH=$(git rev-parse --abbrev-ref HEAD)
+#FORBIDDENBRANCH=qa
+
+#file=".git/MERGE_MSG"
+#if [ -f "$file" ]
+#then
+#	MERGEBRANCH=$(<.git/MERGE_MSG)
+#fi
+
+#if [ "${BRANCH}" == "master" -a "${GIT_COMMIT_TO_MASTER}" != "true" ]
+#then
+#	if [[ $MERGEBRANCH == *$FORBIDDENBRANCH* ]]; then
+#		git commit -m "dummy"
+#	fi
+#    exit 1
+#fi
